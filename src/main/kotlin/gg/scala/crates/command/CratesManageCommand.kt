@@ -11,11 +11,9 @@ import gg.scala.crates.crate.Crate
 import gg.scala.crates.crate.CrateService
 import gg.scala.crates.keyProvider
 import gg.scala.crates.menu.editor.CrateEditorViewMenu
-import gg.scala.crates.player.sync.SendCrateMessageAction
 import gg.scala.flavor.inject.Inject
 import gg.scala.lemon.player.wrapper.AsyncLemonPlayer
 import gg.scala.lemon.util.QuickAccess
-import lol.arch.survival.rootkit.action.PlayerActionDispatcher
 import net.evilblock.cubed.util.CC
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
@@ -58,14 +56,6 @@ object CratesManageCommand : ScalaCommand()
                     ).join()
                 }${CC.SEC} ${CC.PRI}$amount${CC.SEC} crate keys."
             )
-
-            PlayerActionDispatcher.send(lemonPlayer.uniqueId, SendCrateMessageAction(), JsonObject().also {
-                it.addProperty(
-                    "message",
-                    configuration.crateBalanceChange.replace("<crateDisplayName>", crate.displayName)
-                        .replace("<amount>", amount.toString())
-                )
-            })
         }
 
     }
